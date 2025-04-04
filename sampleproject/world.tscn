@@ -471,7 +471,7 @@ position = Vector2(1060, 72)
 rotation = 0.276644
 script = ExtResource("28_k83mh")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Birbway/PathFollow2D"]
+[node name="Bird" type="AnimatedSprite2D" parent="Birbway/PathFollow2D"]
 position = Vector2(3.70526, 2.0665)
 sprite_frames = SubResource("SpriteFrames_4h6ng")
 animation = &"fly"
