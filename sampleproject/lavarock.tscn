@@ -1,5 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://duclsnjtqjqo1"]
+[gd_scene load_steps=8 format=3 uid="uid://duclsnjtqjqo1"]
 
+[ext_resource type="Script" uid="uid://dwdgi5gdauaie" path="res://lavarock.gd" id="1_16ua4"]
 [ext_resource type="Texture2D" uid="uid://dh57o6clmr0ib" path="res://assets/sprites/foreground/laavakivi.png" id="1_h5610"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_16ua4"]
@@ -10,6 +11,7 @@ size = Vector2(42, 32)
 
 [sub_resource type="Animation" id="Animation_h5610"]
 resource_name = "rock"
+loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -17,7 +19,7 @@ tracks/0/path = NodePath("Rock:rotation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.966667),
+"times": PackedFloat32Array(0, 1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [0.0, 6.28319]
@@ -29,10 +31,10 @@ tracks/1/path = NodePath("Rock:scale")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.966667),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Vector2(1, 1), Vector2(1.2, 1.2)]
+"values": [Vector2(1, 1), Vector2(1.2, 1.2), Vector2(1, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_16ua4"]
@@ -69,6 +71,7 @@ _data = {
 }
 
 [node name="Lavarock" type="Area2D"]
+script = ExtResource("1_16ua4")
 
 [node name="Rock" type="Sprite2D" parent="."]
 texture = SubResource("CanvasTexture_16ua4")
@@ -81,3 +84,6 @@ shape = SubResource("RectangleShape2D_h5610")
 libraries = {
 &"": SubResource("AnimationLibrary_16ua4")
 }
+autoplay = "rock"
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
