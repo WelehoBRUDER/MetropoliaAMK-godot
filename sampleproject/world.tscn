@@ -1,4 +1,4 @@
-[gd_scene load_steps=55 format=4 uid="uid://c14qw0deny15v"]
+[gd_scene load_steps=63 format=4 uid="uid://c14qw0deny15v"]
 
 [ext_resource type="Texture2D" uid="uid://dgicsynghyjln" path="res://assets/tiles/tileset_canvas.tres" id="1_f3sb7"]
 [ext_resource type="Texture2D" uid="uid://cjj8mr5d4d57v" path="res://assets/sprites/player/idle.tres" id="2_dwbse"]
@@ -27,6 +27,8 @@
 [ext_resource type="Texture2D" uid="uid://dxy1obwhaa3kk" path="res://assets/sprites/foreground/pensas_s.png" id="25_4h6ng"]
 [ext_resource type="PackedScene" uid="uid://d228xunxqd7l1" path="res://tikkaat.tscn" id="26_bo7i5"]
 [ext_resource type="PackedScene" uid="uid://duclsnjtqjqo1" path="res://lavarock.tscn" id="27_4h6ng"]
+[ext_resource type="Script" uid="uid://dup8uv765amr5" path="res://flight_path.gd" id="28_k83mh"]
+[ext_resource type="Texture2D" uid="uid://d0i7idctq0p4s" path="res://assets/sprites/birb/birb.tres" id="28_o3ebs"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_f3sb7"]
 
@@ -259,6 +261,48 @@ polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3, 4), PackedInt32
 outlines = Array[PackedVector2Array]([PackedVector2Array(1477, 7, 2918, 3, 2918, 608, 1483, 603)])
 agent_radius = 5.0
 
+[sub_resource type="Curve2D" id="Curve2D_4h6ng"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 1060, 72, 0, 0, 0, 0, 1539, 208, 0, 0, 0, 0, 1758, -17, 0, 0, 0, 0, 1065, 70)
+}
+point_count = 4
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k83mh"]
+atlas = ExtResource("28_o3ebs")
+region = Rect2(0, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qktwf"]
+atlas = ExtResource("28_o3ebs")
+region = Rect2(100, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bh8nc"]
+atlas = ExtResource("28_o3ebs")
+region = Rect2(200, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jjr1n"]
+atlas = ExtResource("28_o3ebs")
+region = Rect2(300, 0, 100, 100)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4h6ng"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k83mh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qktwf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bh8nc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jjr1n")
+}],
+"loop": true,
+"name": &"fly",
+"speed": 5.0
+}]
+
 [node name="World" type="Node2D"]
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
@@ -418,3 +462,16 @@ affect_navigation_mesh = true
 
 [node name="Lavarock" parent="." instance=ExtResource("27_4h6ng")]
 position = Vector2(2532, 151)
+
+[node name="Birbway" type="Path2D" parent="."]
+curve = SubResource("Curve2D_4h6ng")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Birbway"]
+position = Vector2(1060, 72)
+rotation = 0.276644
+script = ExtResource("28_k83mh")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Birbway/PathFollow2D"]
+position = Vector2(3.70526, 2.0665)
+sprite_frames = SubResource("SpriteFrames_4h6ng")
+animation = &"fly"
