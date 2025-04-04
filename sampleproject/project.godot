@@ -15,6 +15,10 @@ run/main_scene="uid://c14qw0deny15v"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[autoload]
+
+Globals="*res://globals.gd"
+
 [input]
 
 move-right={
