@@ -6,8 +6,13 @@ extends CharacterBody2D
 @export var deceleration = 800
 
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
+@onready var animation
+
+func _ready() -> void:
+	animation = $PlayerSprite.animation
 
 func _physics_process(delta: float) -> void:
+	$PlayerSprite.play(animation)
 	
 	if not is_on_floor():
 		velocity.y += gravity * delta
@@ -30,13 +35,11 @@ func set_animation(dir: float) -> void:
 		$PlayerSprite.flip_h = false
 	elif dir < 0:
 		$PlayerSprite.flip_h = true
-		
-	if is_on_floor() and velocity.x != 0:
-		$PlayerAnimation.play("walk")
+	if is_on_floor() and abs(velocity.x) > 1:
+		animation = "walk"
 	elif not is_on_floor() and velocity.y < 0:
-		$PlayerAnimation.play("jump-up")
+		animation = "jump-up"
 	elif not is_on_floor() and velocity.y > 0:
-		$PlayerAnimation.play("jump-down")
+		animation = "jump-down"
 	else:
-		$PlayerAnimation.play("idle")
-	
+		animation = "idle"
